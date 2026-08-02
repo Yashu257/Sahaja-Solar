@@ -29,6 +29,11 @@ export const App: React.FC = () => {
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
+  // Scroll to top on initial load
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   // If path is /admin or starts with /admin, render protected Admin portal
   if (currentPath.startsWith('/admin')) {
     return (
