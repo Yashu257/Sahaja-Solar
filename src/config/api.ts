@@ -4,7 +4,7 @@
  */
 
 // Get API base URL based on environment
-export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
 
 // API endpoints
 export const API_ENDPOINTS = {
