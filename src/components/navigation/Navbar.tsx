@@ -52,7 +52,7 @@ export const Navbar: React.FC = () => {
         'fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out',
         isScrolled
           ? 'py-3.5 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-lg text-slate-900'
-          : 'py-5 md:py-6 bg-white/90 backdrop-blur-sm border-b border-slate-200/50 text-slate-900'
+          : 'py-5 md:py-6 bg-gradient-to-b from-white/80 via-white/40 to-transparent text-slate-900'
       )}
     >
       <Container className="flex items-center justify-between">
@@ -118,7 +118,7 @@ export const Navbar: React.FC = () => {
       {/* Mobile Navigation Drawer / Full-Screen Overlay */}
       <div
         className={cn(
-          'fixed inset-0 top-[60px] bg-surface-dark/98 backdrop-blur-xl z-40 lg:hidden flex flex-col justify-between p-6 transition-all duration-400 ease-in-out border-t border-white/10',
+          'fixed inset-0 top-[60px] bg-slate-900/98 backdrop-blur-xl z-40 lg:hidden flex flex-col justify-between p-6 transition-all duration-400 ease-in-out border-t border-white/10',
           mobileMenuOpen ? 'opacity-100 pointer-events-auto translate-y-0' : 'opacity-0 pointer-events-none -translate-y-4'
         )}
       >
