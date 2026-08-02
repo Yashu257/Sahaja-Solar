@@ -100,7 +100,7 @@ export const Hero: React.FC<HeroProps> = ({
         trigger: heroContainerRef.current,
         start: 'top top',
         end: 'bottom bottom',
-        scrub: 0.5, // Increased from 0.1 for smoother interpolated seeking
+        scrub: true, // Changed to true for smoother touch response (no delay)
         onUpdate: (self) => {
           const p = self.progress;
           setScrollProgress(p);
@@ -158,7 +158,7 @@ export const Hero: React.FC<HeroProps> = ({
   return (
     <div
       ref={heroContainerRef}
-      className="relative w-full h-[320vh] md:h-[360vh] bg-surface-dark"
+      className="relative w-full h-[280vh] md:h-[360vh] bg-surface-dark"
     >
       {/* Sticky Fullscreen Hero Viewport */}
       <div
