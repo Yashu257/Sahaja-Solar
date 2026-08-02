@@ -21,26 +21,36 @@ console.log('   SUPABASE_ANON_KEY:', process.env.SUPABASE_ANON_KEY ? 'CONFIGURED
 
 import express from 'express';
 import cors from 'cors';
+import { fileURLToPath } from 'url';
+import { dirname, resolve } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = express();
 
-// Enable CORS for all origins (adjust for production if needed)
+// Enable CORS for all origins
 app.use(cors());
 app.use(express.json());
 
-// Import API handlers
+// Set up module resolution for TypeScript path aliases
+process.env.NODE_PATH = resolve(__dirname, 'src');
+
+// Import API handlers dynamically with proper paths
 async function loadApiHandlers() {
-  const quotesHandler = (await import('./api/quotes.ts')).default;
-  const bookingsHandler = (await import('./api/bookings.ts')).default;
-  const availabilityHandler = (await import('./api/bookings/availability.ts')).default;
-  const chatHandler = (await import('./api/chat.ts')).default;
+  const apiPath = resolve(__dirname, 'api');
+  
+  const quotesHandler = (await import(`${apiPath}/quotes.ts`)).default;
+  const bookingsHandler = (await import(`${apiPath}/bookings.ts`)).default;
+  const availabilityHandler = (await import(`${apiPath}/bookings/availability.ts`)).default;
+  const chatHandler = (await import(`${apiPath}/chat.ts`)).default;
   
   // Admin API handlers
-  const adminLoginHandler = (await import('./api/admin/login.ts')).default;
-  const adminLeadsHandler = (await import('./api/admin/leads.ts')).default;
-  const adminBookingsHandler = (await import('./api/admin/bookings.ts')).default;
-  const adminDashboardHandler = (await import('./api/admin/dashboard.ts')).default;
-  const adminAvailabilityHandler = (await import('./api/admin/availability.ts')).default;
+  const adminLoginHandler = (await import(`${apiPath}/admin/login.ts`)).default;
+  const adminLeadsHandler = (await import(`${apiPath}/admin/leads.ts`)).default;
+  const adminBookingsHandler = (await import(`${apiPath}/admin/bookings.ts`)).default;
+  const adminDashboardHandler = (await import(`${apiPath}/admin/dashboard.ts`)).default;
+  const adminAvailabilityHandler = (await import(`${apiPath}/admin/availability.ts`)).default;
 
   return {
     quotesHandler,
