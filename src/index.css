@@ -1,0 +1,163 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Brand Colors */
+    --color-brand-green: #0A4D3C;
+    --color-brand-green-hover: #073B2E;
+    --color-brand-green-dark: #04271E;
+    --color-brand-green-light: #E8F4F1;
+
+    --color-brand-gold: #F5A623;
+    --color-brand-gold-hover: #D98F19;
+    --color-brand-gold-highlight: #FFD000;
+    --color-brand-gold-light: #FFF8EB;
+
+    /* Surfaces & Neutrals */
+    --color-bg-primary: #FAFAFA;
+    --color-bg-card: #FFFFFF;
+    --color-bg-dark: #0B100D;
+    --color-bg-muted: #F1F5F3;
+
+    /* Typography Colors */
+    --color-text-primary: #111814;
+    --color-text-secondary: #475569;
+    --color-text-muted: #64748B;
+    --color-text-inverse: #FFFFFF;
+
+    /* Borders & Radius */
+    --color-border: #E2E8F0;
+    --color-border-dark: rgba(255, 255, 255, 0.12);
+    --radius-card: 24px;
+    --radius-button: 14px;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-primary);
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    /* IMPORTANT for GSAP ScrollTrigger pinning: DO NOT set overflow-x: hidden on html/body */
+    position: relative;
+  }
+}
+
+/* Custom Component Utilities */
+@layer components {
+  /* Layout Containers */
+  .container-custom {
+    width: 100%;
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.25rem; /* 20px mobile */
+    padding-right: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .container-custom {
+      padding-left: 2.25rem; /* 36px tablet */
+      padding-right: 2.25rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container-custom {
+      padding-left: 4rem; /* 64px desktop */
+      padding-right: 4rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .container-custom {
+      padding-left: 5rem; /* 80px wide desktop */
+      padding-right: 5rem;
+    }
+  }
+
+  /* Typography Scale Tokens */
+  .display-heading {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: clamp(2.75rem, 5.5vw + 0.5rem, 5.25rem); /* ~44px to 84px */
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+  }
+
+  .h1 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2.25rem, 3.5vw + 0.75rem, 3.75rem); /* ~36px to 60px */
+    line-height: 1.12;
+    letter-spacing: -0.025em;
+  }
+
+  .h2 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.75rem, 2.5vw + 0.5rem, 2.75rem); /* ~28px to 44px */
+    line-height: 1.18;
+    letter-spacing: -0.02em;
+  }
+
+  .h3 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 600;
+    font-size: clamp(1.25rem, 1.5vw + 0.5rem, 1.875rem); /* ~20px to 30px */
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+  }
+
+  .body-large {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.125rem, 0.4vw + 0.95rem, 1.25rem); /* 18px - 20px */
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+  }
+
+  .body-main {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem; /* 16px */
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+  }
+
+  .small-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.875rem; /* 14px */
+    line-height: 1.5;
+  }
+
+  .label-tag {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 0.75rem; /* 12px */
+    line-height: 1;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+}
+
+/* Animations & Glass Utilities */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.glass-panel-dark {
+  background: rgba(11, 16, 13, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}

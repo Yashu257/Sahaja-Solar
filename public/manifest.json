@@ -1,0 +1,15 @@
+{
+  "short_name": "Sahaja Solar",
+  "name": "Sahaja Solar Energy Solutions",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any"
+    }
+  ],
+  "start_url": ".",
+  "background_color": "#0A4D3C",
+  "theme_color": "#0A4D3C",
+  "display": "standalone"
+}
