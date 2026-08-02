@@ -118,7 +118,7 @@ export const Navbar: React.FC = () => {
       {/* Mobile Navigation Drawer / Full-Screen Overlay */}
       <div
         className={cn(
-          'fixed inset-0 top-[60px] bg-slate-950/95 backdrop-blur-3xl z-40 lg:hidden flex flex-col justify-between p-6 transition-all duration-400 ease-in-out border-t border-white/10',
+          'fixed inset-0 top-[60px] bg-slate-950 backdrop-blur-3xl z-40 lg:hidden flex flex-col justify-between p-6 transition-all duration-400 ease-in-out border-t border-white/10',
           mobileMenuOpen ? 'opacity-100 pointer-events-auto translate-y-0' : 'opacity-0 pointer-events-none -translate-y-4'
         )}
       >
