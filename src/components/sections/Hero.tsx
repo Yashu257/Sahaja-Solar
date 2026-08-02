@@ -57,6 +57,16 @@ export const Hero: React.FC<HeroProps> = ({
 
     video.addEventListener('canplay', handleCanPlay);
 
+    // Detect if device is mobile/touch
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+                     ('ontouchstart' in window);
+
+    // On mobile, just show a static frame - no video scrubbing
+    if (isMobile && video.duration) {
+      video.currentTime = video.duration * 0.3; // Show middle frame
+      video.pause();
+    }
+
     // NOTE: Scroll-controlled video scrubbing is NOT disabled for reduced motion
     // because the user has full control via scroll (not autoplay/decorative animation)
 
@@ -66,6 +76,7 @@ export const Hero: React.FC<HeroProps> = ({
     // Helper to safely set currentTime without overloading decoder seeking queue
     const seekVideoTo = (targetTime: number) => {
       if (!video || !Number.isFinite(video.duration) || video.duration <= 0) return;
+      if (isMobile) return; // Skip seeking on mobile
 
       const clampedTime = Math.min(video.duration - 0.05, Math.max(0, targetTime));
 
@@ -100,13 +111,13 @@ export const Hero: React.FC<HeroProps> = ({
         trigger: heroContainerRef.current,
         start: 'top top',
         end: 'bottom bottom',
-        scrub: true, // Changed to true for smoother touch response (no delay)
+        scrub: isMobile ? 1 : true, // Slower on mobile for smoother text transitions
         onUpdate: (self) => {
           const p = self.progress;
           setScrollProgress(p);
 
-          // 1. DIRECT SCROLL-POSITION DRIVEN VIDEO SCRUBBING
-          if (video && Number.isFinite(video.duration) && video.duration > 0) {
+          // 1. DIRECT SCROLL-POSITION DRIVEN VIDEO SCRUBBING (Desktop only)
+          if (!isMobile && video && Number.isFinite(video.duration) && video.duration > 0) {
             const targetTime = p * video.duration;
             seekVideoTo(targetTime);
           }
