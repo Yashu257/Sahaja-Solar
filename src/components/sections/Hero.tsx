@@ -61,44 +61,33 @@ export const Hero: React.FC<HeroProps> = ({
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
                      ('ontouchstart' in window);
 
-    // On mobile, just show a static frame - no video scrubbing
-    if (isMobile && video.duration) {
-      video.currentTime = video.duration * 0.3; // Show middle frame
-      video.pause();
-    }
-
-    // NOTE: Scroll-controlled video scrubbing is NOT disabled for reduced motion
-    // because the user has full control via scroll (not autoplay/decorative animation)
-
     let isSeeking = false;
-    let pendingTime: number | null = null;
+    let lastSeekTime = 0;
 
-    // Helper to safely set currentTime without overloading decoder seeking queue
+    // Helper to safely set currentTime with throttling for mobile
     const seekVideoTo = (targetTime: number) => {
       if (!video || !Number.isFinite(video.duration) || video.duration <= 0) return;
-      if (isMobile) return; // Skip seeking on mobile
 
       const clampedTime = Math.min(video.duration - 0.05, Math.max(0, targetTime));
 
-      // Skip micro-adjustments (reduce jitter)
-      if (Math.abs(video.currentTime - clampedTime) < 0.016) return; // ~1 frame at 60fps
+      // On mobile, throttle seeking to reduce jank
+      if (isMobile) {
+        const now = Date.now();
+        if (now - lastSeekTime < 100) return; // Max 10 seeks per second on mobile
+        lastSeekTime = now;
+      }
 
-      // Smooth interpolation instead of instant seeking
+      // Skip micro-adjustments (reduce jitter)
+      if (Math.abs(video.currentTime - clampedTime) < 0.05) return;
+
       if (!isSeeking) {
         isSeeking = true;
         video.currentTime = clampedTime;
-      } else {
-        pendingTime = clampedTime;
       }
     };
 
     const handleSeeked = () => {
       isSeeking = false;
-      if (pendingTime !== null) {
-        const nextTime = pendingTime;
-        pendingTime = null;
-        seekVideoTo(nextTime);
-      }
     };
 
     video.addEventListener('seeked', handleSeeked);
@@ -111,13 +100,13 @@ export const Hero: React.FC<HeroProps> = ({
         trigger: heroContainerRef.current,
         start: 'top top',
         end: 'bottom bottom',
-        scrub: isMobile ? 1 : true, // Slower on mobile for smoother text transitions
+        scrub: isMobile ? 0.5 : true, // Smoother interpolation on mobile
         onUpdate: (self) => {
           const p = self.progress;
           setScrollProgress(p);
 
-          // 1. DIRECT SCROLL-POSITION DRIVEN VIDEO SCRUBBING (Desktop only)
-          if (!isMobile && video && Number.isFinite(video.duration) && video.duration > 0) {
+          // 1. VIDEO SCRUBBING (works on both mobile and desktop now)
+          if (video && Number.isFinite(video.duration) && video.duration > 0) {
             const targetTime = p * video.duration;
             seekVideoTo(targetTime);
           }
