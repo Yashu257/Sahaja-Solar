@@ -39,13 +39,44 @@ export default async function handler(req: any, res: any) {
       .from('availability_config')
       .select('*')
       .eq('is_active', true)
-      .single();
+      .maybeSingle(); // Use maybeSingle instead of single to handle no results
 
-    if (configError || !config) {
+    if (configError) {
       console.error('Availability config error:', configError);
       return res.status(500).json({
         success: false,
         message: 'Failed to fetch availability configuration.',
+        error: configError.message,
+      });
+    }
+
+    if (!config) {
+      // No active config found - return default availability
+      console.warn('No active availability config found, using defaults');
+      
+      // Return default business hours as fallback
+      const defaultSlots: TimeSlot[] = [];
+      const defaultHours = [9, 10, 11, 12, 14, 15, 16, 17]; // 9 AM to 5 PM, skip 1 PM lunch
+      
+      defaultHours.forEach(hour => {
+        const timeLabel =
+          hour < 12
+            ? `${hour}:00 AM`
+            : hour === 12
+            ? `12:00 PM`
+            : `${hour - 12}:00 PM`;
+        
+        defaultSlots.push({
+          time: timeLabel,
+          isoString: new Date(`${date}T${hour.toString().padStart(2, '0')}:00:00+05:30`).toISOString(),
+          available: true,
+        });
+      });
+      
+      return res.status(200).json({
+        success: true,
+        slots: defaultSlots,
+        message: 'Using default availability',
       });
     }
 
