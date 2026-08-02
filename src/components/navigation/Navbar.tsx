@@ -51,8 +51,8 @@ export const Navbar: React.FC = () => {
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out',
         isScrolled
-          ? 'py-3.5 bg-surface-dark/90 backdrop-blur-md border-b border-white/10 shadow-2xl text-white'
-          : 'py-5 md:py-6 bg-gradient-to-b from-black/80 via-black/40 to-transparent text-white'
+          ? 'py-3.5 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-lg text-slate-900'
+          : 'py-5 md:py-6 bg-white/90 backdrop-blur-sm border-b border-slate-200/50 text-slate-900'
       )}
     >
       <Container className="flex items-center justify-between">
@@ -66,10 +66,10 @@ export const Navbar: React.FC = () => {
             <Sun className="w-5 h-5 md:w-6 md:h-6" />
           </div>
           <div className="flex flex-col">
-            <span className="font-heading font-extrabold text-base md:text-lg tracking-tight text-white group-hover:text-brand-gold transition-colors duration-200">
+            <span className="font-heading font-extrabold text-base md:text-lg tracking-tight text-slate-900 group-hover:text-brand-green transition-colors duration-200">
               {SAHAJA_COMPANY_INFO.name}
             </span>
-            <span className="text-[9px] uppercase font-bold tracking-widest text-brand-gold/90 -mt-1 hidden sm:block">
+            <span className="text-[9px] uppercase font-bold tracking-widest text-brand-gold -mt-1 hidden sm:block">
               Solar Energy
             </span>
           </div>
@@ -81,7 +81,7 @@ export const Navbar: React.FC = () => {
             <a
               key={item.label}
               href={item.href}
-              className="relative py-1 text-slate-200 hover:text-white transition-colors duration-200 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold rounded"
+              className="relative py-1 text-slate-700 hover:text-slate-900 transition-colors duration-200 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold rounded"
             >
               {item.label}
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-gold rounded-full transition-all duration-300 group-hover:w-full" />
@@ -107,7 +107,7 @@ export const Navbar: React.FC = () => {
         {/* Mobile Menu Toggle */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="lg:hidden p-2 rounded-xl text-white bg-white/10 hover:bg-white/20 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold"
+          className="lg:hidden p-2 rounded-xl text-slate-900 bg-slate-100 hover:bg-slate-200 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold"
           aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={mobileMenuOpen}
         >
