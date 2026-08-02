@@ -30,11 +30,11 @@ export const FloatingAssistantLauncher: React.FC = () => {
           href={whatsappUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="h-11 px-3.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white shadow-subtle flex items-center gap-2 transition-all duration-300 border border-emerald-400/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
+          className="h-9 px-3 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white shadow-subtle flex items-center gap-1.5 transition-all duration-300 border border-emerald-400/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
           aria-label="Chat with Sahaja Solar on WhatsApp"
         >
-          <MessageCircle className="w-4 h-4 text-white" />
-          <span className="font-heading font-bold text-xs tracking-wider uppercase pr-1">
+          <MessageCircle className="w-3.5 h-3.5 text-white" />
+          <span className="font-heading font-bold text-[10px] tracking-wider uppercase">
             WhatsApp
           </span>
         </a>
@@ -42,13 +42,13 @@ export const FloatingAssistantLauncher: React.FC = () => {
         {/* Ask Sahaja AI Assistant Button */}
         <button
           onClick={toggleAssistant}
-          className="h-12 px-4 rounded-full bg-brand-green text-white shadow-gold-glow flex items-center gap-2.5 hover:bg-brand-green-dark transition-all duration-300 border border-brand-gold/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold"
+          className="h-9 px-3 rounded-full bg-brand-green text-white shadow-gold-glow flex items-center gap-2 hover:bg-brand-green-dark transition-all duration-300 border border-brand-gold/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold"
           aria-label="Open Ask Sahaja AI Assistant"
         >
-          <div className="w-7 h-7 rounded-full bg-brand-gold text-brand-green flex items-center justify-center flex-shrink-0">
-            <Sun className="w-4 h-4 animate-spin-slow" />
+          <div className="w-5 h-5 rounded-full bg-brand-gold text-brand-green flex items-center justify-center flex-shrink-0">
+            <Sun className="w-3 h-3 animate-spin-slow" />
           </div>
-          <span className="font-heading font-bold text-xs tracking-wider uppercase pr-1">
+          <span className="font-heading font-bold text-[10px] tracking-wider uppercase">
             ASK SAHAJA
           </span>
         </button>
